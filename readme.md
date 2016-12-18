@@ -2,7 +2,8 @@
 
 ## Official Documentation
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Laravel docs: [Laravel website](http://laravel.com/docs).
+Vue docs: [Vue.js website](https://vuejs.org/).
 
 ## Description
 Just for training purposes.
