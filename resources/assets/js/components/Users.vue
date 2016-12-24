@@ -1,6 +1,7 @@
-<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<template>
 	<div class="clearfix">
 		<form @submit.prevent="createUser" method="post" role="form">
+
 			<legend>Add a new User</legend>
 
 			<div class="row">
@@ -24,7 +25,7 @@
 		</form>
 		<hr>
 
-		<User v-for="user in users" v-bind:user="user"></User>
+		<User v-for="user in users" v-bind:user="user" @delete-user="deleteUser"></User>
 	</div>
 </template>
 
@@ -54,6 +55,15 @@
 		},
 
 		methods: {
+
+			deleteUser(user){
+				this.$http.delete('/users/' + user.id).then(response => {
+					let index = this.users.indexOf(user);
+					this.users.splice(index, 1);
+
+				});
+
+			},
 
 			fetchUsers(){ // Get All Users
 				this.$http.get('/users')

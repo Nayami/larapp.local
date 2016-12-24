@@ -28,7 +28,7 @@ class UsersController extends Controller {
 		$user = User::create( [
 			'username' => $request->input( 'username' ),
 			'email'    => $request->input( 'email' ),
-			'password' => Hash::make($request->input( 'email' ))
+			'password' => Hash::make( $request->input( 'email' ) )
 		] );
 
 		return response()->json( [
@@ -49,11 +49,28 @@ class UsersController extends Controller {
 
 	public function update( Request $request, $id )
 	{
-		//
+		$user = User::find( $id );
+		$input = $request->all();
+
+		$this->validate( $request, [
+			'username' => 'required',
+			'email'    => 'required|email|unique:users,email,'.$id
+		] );
+
+		$user->fill($input)->save();
+
+		return response()->json( [
+			'message' => 'User updated successfully',
+			'user'    => $user
+		] );
 	}
 
 	public function destroy( $id )
 	{
-		//
+		User::find( $id )->delete();
+
+		return response()->json( [
+			'message' => 'User was deleted successfully'
+		] );
 	}
 }
